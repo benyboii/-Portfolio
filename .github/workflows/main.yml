@@ -25,13 +25,13 @@ jobs:
 
         Write-Host "::set-output name=docs_changed::$HasDiff"
   conditional_job:
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'windows-latest'
     needs: [ conditional_job_check_files ]
     if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
     steps:
     - uses: actions/checkout@v3
     - name: Converting docx to pdf
-      shell: pwsh
+      shell: python
       id: conv_docx_pdf
       run: |
         $docx_path = 'C:\Users\benba\Ben_Bar\CV-Ben_Bar.docx'
