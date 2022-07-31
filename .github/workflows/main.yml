@@ -34,7 +34,7 @@ jobs:
       shell: pwsh
       id: conv_docx_pdf
       run:
-        -|
+         |
         $docx_path = 'C:\Users\benba\Ben_Bar\CV-Ben_Bar.docx'
         $pdf_path = 'C:\Users\benba\Ben_Bar\CV-Ben_Bar.pdf'
         $word_app = New-Object -ComObject Word.Application
