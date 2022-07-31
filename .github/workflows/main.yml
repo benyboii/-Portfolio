@@ -15,7 +15,7 @@ jobs:
       with:
         # Checkout as many commits as needed for the diff
         fetch-depth: 2
-      shell: pwsh
+    - shell: pwsh
       id: check_file_changed
       run: |
         $diff = git diff --name-only HEAD^ HEAD
