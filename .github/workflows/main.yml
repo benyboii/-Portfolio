@@ -29,9 +29,8 @@ jobs:
     needs: [ conditional_job_check_files ]
     if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
     steps:
-    - uses: actions/checkout@v3
+    - uses: pnp/action-cli-runscript@v2.0.1
     - name: Converting docx to pdf
-      uses: pnp/action-cli-runscript@v2.0.1
       shell: pwsh
       id: conv_docx_pdf
       run: |
