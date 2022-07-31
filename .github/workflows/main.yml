@@ -33,12 +33,11 @@ jobs:
     - name: Converting docx to pdf
       shell: pwsh
       id: conv_docx_pdf
-      run:
-         |
+      run: |
         $docx_path = 'C:\Users\benba\Ben_Bar\CV-Ben_Bar.docx'
         $pdf_path = 'C:\Users\benba\Ben_Bar\CV-Ben_Bar.pdf'
         $word_app = New-Object -ComObject Word.Application
-        $document = $word_app.Documents.Open($document_path)
+        $document = $word_app.Documents.Open($docx_path)
         $document.SaveAs([ref] $pdf_path, [ref] 17)
         $document.Close() 
     - name: Pushing PDF
