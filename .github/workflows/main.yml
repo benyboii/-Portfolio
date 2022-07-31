@@ -31,7 +31,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Converting docx to pdf
-      shell: python
+      shell: pwsh
       id: conv_docx_pdf
       run: |
         $docx_path = 'C:\Users\benba\Ben_Bar\CV-Ben_Bar.docx'
