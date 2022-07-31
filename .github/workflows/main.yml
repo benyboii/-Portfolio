@@ -1,15 +1,9 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
-
-# Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: 
       - 'main' 
-
-
 jobs:
   conditional_job_check_files:
     runs-on: 'ubuntu-20.04'
@@ -25,7 +19,6 @@ jobs:
       id: check_file_changed
       run: |
         $diff = git diff --name-only HEAD^ HEAD
-
     
         $SourceDiff = $diff | Where-Object { $_ -match '^docs/' -or $_ -match '.docx$' }
         $HasDiff = $SourceDiff.Length -gt 0
