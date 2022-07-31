@@ -37,8 +37,4 @@ jobs:
         sudo apt-get install unoconv
         doc2pdf CV-Ben_Bar.docx
     - name: Pushing PDF
-      uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
-      with:
-        add: 'src'
-        cwd: 'C:\Users\benba\Ben_Bar\.git'
-        message: 'Auto PDF CI/CD'
+      uses: ludeeus/action-push@0.0.1
