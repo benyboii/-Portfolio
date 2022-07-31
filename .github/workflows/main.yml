@@ -44,7 +44,7 @@ jobs:
     - name: Build Documentation
       uses: VakuWare/docfx-pdf-action@v1.4.0
       with:
-            args: C:\Users\benba\Ben Bar\CV - Ben Bar.docx
+            args: C:\Users\benba\Ben_Bar\CV-Ben_Bar.docx
     - name: Pushing PDF
       uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
       with:
@@ -56,7 +56,7 @@ jobs:
 
     # The local path to the directory where your repository is located. You should use actions/checkout first to set it up.
     # Default: '.'
-        cwd: 'C:\Users\benba\Ben Bar\.git'
+        cwd: 'C:\Users\benba\Ben_Bar\.git'
 
         # The message for the commit.
         # Default: 'Commit from GitHub Actions (name of the workflow)'
