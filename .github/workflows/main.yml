@@ -15,7 +15,7 @@ jobs:
       with:
         # Checkout as many commits as needed for the diff
         fetch-depth: 2
-    - shell: pwsh
+      shell: pwsh
       id: check_file_changed
       run: |
         $diff = git diff --name-only HEAD^ HEAD
@@ -30,8 +30,8 @@ jobs:
     if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
     steps:
     - name: Converting docx to pdf
-    - uses: actions/checkout@v3
-    - shell: pwsh
+      uses: actions/checkout@v3
+      shell: pwsh
       id: conv_docx_pdf
       run:
         -|
@@ -45,10 +45,5 @@ jobs:
       uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
       with:
         add: 'src'
-
-
-
-    # The local path to the directory where your repository is located. You should use actions/checkout first to set it up.
-    # Default: '.'
         cwd: 'C:\Users\benba\Ben_Bar\.git'
         message: 'Auto PDF CI/CD'
