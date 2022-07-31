@@ -41,15 +41,23 @@ jobs:
     - uses: actions/checkout@v3
 
         # Runs a single command using the runners shell
-    - name: Build Documentation
-      uses: VakuWare/docfx-pdf-action@v1.4.0
-      with:
-            args: CV-Ben_Bar.docx
+    - name: Converting docx to pdf
+    - shell: pwsh
+      id: conv_docx_pdf
+      run:
+        -|
+        $docx_path = 'C:\Users\benba\Ben_Bar\CV-Ben_Bar.docx'
+        $pdf_path = 'C:\Users\benba\Ben_Bar\CV-Ben_Bar.pdf'
+        $word_app = New-Object -ComObject Word.Application
+        $document = $word_app.Documents.Open($document_path)
+        $document.SaveAs([ref] $pdf_path, [ref] 17)
+        $document.Close() 
+       
+       
+       
     - name: Pushing PDF
       uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
       with:
-    # The arguments for the `git add` command (see the paragraph below for more info)
-    # Default: '.'
         add: 'src'
 
 
@@ -57,21 +65,4 @@ jobs:
     # The local path to the directory where your repository is located. You should use actions/checkout first to set it up.
     # Default: '.'
         cwd: 'C:\Users\benba\Ben_Bar\.git'
-
-        # The message for the commit.
-        # Default: 'Commit from GitHub Actions (name of the workflow)'
         message: 'Auto PDF CI/CD'
-
-
-        # The way the action should handle pathspec errors from the add and remove commands. Three options are available:
-        # - ignore -> errors will be logged but the step won't fail
-        # - exitImmediately -> the action will stop right away, and the step will fail
-        # - exitAtEnd -> the action will go on, every pathspec error will be logged at the end, the step will fail.
-        # Default: ignore
-        pathspec_error_handling: exitImmediately
-
-
-        # Whether to push the commit and, if any, its tags to the repo. It can also be used to set the git push arguments (see the paragraph below for more info)
-        # Default: true
-        push: true
-
