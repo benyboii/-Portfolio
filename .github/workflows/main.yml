@@ -29,8 +29,8 @@ jobs:
     needs: [ conditional_job_check_files ]
     if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
     steps:
+    - uses: actions/checkout@v3
     - name: Converting docx to pdf
-      uses: actions/checkout@v3
       shell: pwsh
       id: conv_docx_pdf
       run:
