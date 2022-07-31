@@ -36,5 +36,9 @@ jobs:
       run: |
         sudo apt-get install unoconv
         doc2pdf CV-Ben_Bar.docx
-    - name: Pushing PDF
-      uses: ludeeus/action-push@0.0.1
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Auto pdf CI/CD
