@@ -17,7 +17,7 @@ jobs:
     outputs:
       docs_changed: ${{ steps.check_file_changed.outputs.docs_changed }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         # Checkout as many commits as needed for the diff
         fetch-depth: 2
@@ -31,17 +31,13 @@ jobs:
         $HasDiff = $SourceDiff.Length -gt 0
 
         Write-Host "::set-output name=docs_changed::$HasDiff"
-
-  # Run the job only with "docs_changed" equals "True"
   conditional_job:
     runs-on: 'ubuntu-20.04'
     needs: [ conditional_job_check_files ]
     if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
     steps:
-    - uses: actions/checkout@v3
-
-        # Runs a single command using the runners shell
     - name: Converting docx to pdf
+    - uses: actions/checkout@v3
     - shell: pwsh
       id: conv_docx_pdf
       run:
@@ -52,9 +48,6 @@ jobs:
         $document = $word_app.Documents.Open($document_path)
         $document.SaveAs([ref] $pdf_path, [ref] 17)
         $document.Close() 
-       
-       
-       
     - name: Pushing PDF
       uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
       with:
