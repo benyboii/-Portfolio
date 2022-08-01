@@ -33,7 +33,10 @@ jobs:
     - name: installing docx converter
       shell: python
       id: conv_docx_pdf
-      run: pip install docx2pdf
+      run: |
+        import subprocess
+        import sys
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "docx2pdf"])
     - name: converting docx to pdf
       shell: python
       run: |
