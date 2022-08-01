@@ -36,9 +36,47 @@ jobs:
       run: |
         sudo apt-get install unoconv
         doc2pdf CV-Ben_Bar.docx
-    - uses: actions/checkout@v2
+    - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
       with:
-        ref: ${{ github.head_ref }}
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: Auto pdf CI/CD
+      # The arguments for the `git add` command (see the paragraph below for more info)
+      # Default: '.'
+        add: '.'
+
+        # The name of the user that will be displayed as the author of the commit.
+        # Default: depends on the default_author input
+        author_name: CI/CD
+
+        # The email of the user that will be displayed as the author of the commit.
+        # Default: depends on the default_author input
+        author_email: benbar101@gmail.com
+
+        # The local path to the directory where your repository is located. You should use actions/checkout first to set it up.
+        # Default: '.'
+        cwd: 'C:/Users/benba/Ben_Bar/.git'
+
+        # Determines the way the action fills missing author name and email. Three options are available:
+        # - github_actor -> UserName <UserName@users.noreply.github.com>
+        # - user_info -> Your Display Name <your-actual@email.com>
+        # - github_actions -> github-actions <email associated with the github logo>
+        # Default: github_actor
+        default_author: github_actor
+
+        # The message for the commit.
+        # Default: 'Commit from GitHub Actions (name of the workflow)'
+        message: 'Auto pdf maker'
+
+        # Arguments for the git pull command. By default, the action does not pull.
+        # Default: ''
+        pull: ''
+
+        # Whether to push the commit and, if any, its tags to the repo. It can also be used to set the git push arguments (see the paragraph below for more info)
+        # Default: true
+        push: true
+
+        # Arguments for the git tag command (the tag name always needs to be the first word not preceded by an hyphen)
+        # Default: ''
+        tag: 'v1.0.0 --force'
+
+        # Arguments for the git push --tags command (any additional argument will be added after --tags)
+        # Default: ''
+        tag_push: '--force'
