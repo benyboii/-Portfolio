@@ -25,18 +25,22 @@ jobs:
 
         Write-Host "::set-output name=docs_changed::$HasDiff"
   conditional_job:
-    runs-on: 'ubuntu-latest'
+    runs-on: 'windows-latest'
     needs: [ conditional_job_check_files ]
     if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
     steps:
     - uses: actions/checkout@v3
     - name: converting docx to pdf
-      shell: bash
+      shell: pwsh
       id: conv_docx_pdf
       run: |
-        sudo apt update
-        sudo apt -y install libreoffice
-        lowriter --convert-to pdf 'CV-Ben_Bar.docx'
+        Install-Module -Name PSWriteWord
+        $word_app = New-Object -ComObject Word.Application
+        $document = $word_app.Documents.Open('CV-Ben_Bar.docx')
+        $pdf_filename = "CV-Ben_Bar.pdf"
+        $document.SaveAs([ref] $pdf_filename, [ref] 17)
+        $document.Close()
+        $word_app.Quit()
     - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
       with:
       # The arguments for the `git add` command (see the paragraph below for more info)
