@@ -25,17 +25,23 @@ jobs:
 
         Write-Host "::set-output name=docs_changed::$HasDiff"
   conditional_job:
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'windows-latest'
     needs: [ conditional_job_check_files ]
     if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
     steps:
     - uses: actions/checkout@v3
     - name: Converting docx to pdf
-      shell: bash
+      shell: pwsh
       id: conv_docx_pdf
       run: |
-        sudo apt-get install unoconv
-        doc2pdf CV-Ben_Bar.docx
+        Install-Module -Name ImportExcel
+        $word_app = New-Object -ComObject Word.Application
+        $word_path = 'CV-Ben_Bar.docx'
+        $document = $word_app.Documents.Open(word_path)
+        $pdf_filename = "CV-Ben_Bar.pdf"
+        $document.SaveAs([ref] $pdf_filename, [ref] 17)
+        $document.Close()
+        $word_app.Quit()
     - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
       with:
       # The arguments for the `git add` command (see the paragraph below for more info)
