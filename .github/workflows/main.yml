@@ -35,9 +35,8 @@ jobs:
       id: conv_docx_pdf
       run: |
         sudo apt update
-        sudo apt-get install texlive-publishers
-        sudo apt -y install pandoc
-        pandoc 'CV-Ben_Bar.docx' --output 'CV-Ben_Bar.pdf'
+        sudo apt -y install libreoffice
+        lowriter --convert-to pdf 'CV-Ben_Bar.docx'
     - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
       with:
       # The arguments for the `git add` command (see the paragraph below for more info)
