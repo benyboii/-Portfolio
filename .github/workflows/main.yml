@@ -25,20 +25,24 @@ jobs:
 
         Write-Host "::set-output name=docs_changed::$HasDiff"
   conditional_job:
-    runs-on: 'ubuntu-latest'
+    runs-on: 'windows-latest'
     needs: [ conditional_job_check_files ]
     if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
     steps:
     - uses: actions/checkout@v3
-    - name: converting docx to html to pldf
-      shell: bash
+    - name: installing docx2pdf 
+      shell: python
       id: conv_docx_pdf
       run: |
-        sudo apt update
-        sudo apt -y install libreoffice
-        sudo dpkg -i $DEB
-        libreoffice --headless --convert-to html 'CV-Ben_Bar.docx' && pandoc 'CV-Ben_Bar.html' -o 'CV-Ben_Bar.pdf'
-        rm 'CV-Ben_Bar.html'
+        import subprocess
+        import sys
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "docx2pdf"])
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "pywin32"])
+    - name: converting docx to pdf 
+      shell: python
+      run: |
+        from docx2pdf import convert
+        convert("CV-Ben_Bar.docx")
     - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
       with:
       # The arguments for the `git add` command (see the paragraph below for more info)
