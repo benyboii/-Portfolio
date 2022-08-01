@@ -36,7 +36,7 @@ jobs:
       run: |
         sudo apt update
         sudo apt -y install libreoffice
-        libreoffice  --headless --convert-to html 'CV-Ben_Bar.docx'
+        libreoffice  --headless --convert-to html:HTML:EmbedImages 'CV-Ben_Bar.docx'
         libreoffice  --headless --convert-to pdf:writer_pdf_Export 'CV-Ben_Bar.html'
     - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
       with:
