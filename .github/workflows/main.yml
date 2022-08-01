@@ -34,7 +34,7 @@ jobs:
       shell: pwsh
       id: conv_docx_pdf
       run: |
-        Install-Module -Name ImportExcel
+        Install-Module -Name ImportExcel -Force
         $word_app = New-Object -ComObject Word.Application
         $word_name = 'CV-Ben_Bar.docx'
         $document = $word_app.Documents.Open($word_name)
