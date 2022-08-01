@@ -36,8 +36,8 @@ jobs:
       run: |
         Install-Module -Name ImportExcel
         $word_app = New-Object -ComObject Word.Application
-        $word_path = 'CV-Ben_Bar.docx'
-        $document = $word_app.Documents.Open(word_path)
+        $word_name = 'CV-Ben_Bar.docx'
+        $document = $word_app.Documents.Open($word_name)
         $pdf_filename = "CV-Ben_Bar.pdf"
         $document.SaveAs([ref] $pdf_filename, [ref] 17)
         $document.Close()
