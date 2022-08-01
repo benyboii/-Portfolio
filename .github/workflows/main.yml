@@ -30,9 +30,9 @@ jobs:
     if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
     steps:
     - uses: actions/checkout@v3
-    - name: installing docx converter
+    - name: converting docx to html to pldf
       shell: bash
-      id: converting docx to html to pdf
+      id: conv_docx_pdf
       run: |
         sudo apt update
         sudo apt -y install libreoffice
