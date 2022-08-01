@@ -30,18 +30,15 @@ jobs:
     if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
     steps:
     - uses: actions/checkout@v3
-    - name: Converting docx to pdf
-      shell: pwsh
+    - name: installing docx converter
+      shell: python
       id: conv_docx_pdf
+      run: pip install docx2pdf
+    - name: converting docx to pdf
+      shell: python
       run: |
-        Install-Module -Name ImportExcel -Force
-        $word_app = New-Object -ComObject Word.Application
-        $word_name = 'CV-Ben_Bar.docx'
-        $document = $word_app.Documents.Open($word_name)
-        $pdf_filename = "CV-Ben_Bar.pdf"
-        $document.SaveAs([ref] $pdf_filename, [ref] 17)
-        $document.Close()
-        $word_app.Quit()
+        from docx2pdf import convert
+        convert("CV-Ben_Bar.docx")
     - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
       with:
       # The arguments for the `git add` command (see the paragraph below for more info)
