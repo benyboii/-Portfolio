@@ -29,7 +29,7 @@ jobs:
 
     - uses: docker://pandoc/latex
       with:
-          args: '-v "/home/runner/work/-Portfolio/":"/github/workspace" CV-Ben_Bar.docx -o CV-Ben_Bar.pdf'
+          args: 'CV-Ben_Bar.docx -o CV-Ben_Bar.pdf'
           runs-on: 'ubuntu-latest'
     - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
       with:
