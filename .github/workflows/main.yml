@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: docker://pandoc/latex
         with:
-          args: "--from docx CV-Ben_Bar.docx --to pdf CV-Ben_Bar.pdf" # gets appended to pandoc command
+          args: "--from docx ~/CV-Ben_Bar.docx --to pdf CV-Ben_Bar.pdf" # gets appended to pandoc command
   conditional_job:
     runs-on: 'windows-latest'
     needs: [ conditional_job_check_files ]
