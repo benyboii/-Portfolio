@@ -25,16 +25,17 @@ jobs:
 
         Write-Host "::set-output name=docs_changed::$HasDiff"
   conditional_job:
-      runs-on: 'windows-latest'
+      runs-on: 'ubuntu-latest'
       needs: [ conditional_job_check_files ]
       if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
       steps:
       - uses: actions/checkout@v3
-
-      - name: running docx2pdf convertor
-        shell: pwsh
-        run: .\dist\CiCd.exe
-
+      - name: libreoffice convertor
+        shell: bash
+        run: |
+          sudo apt update
+          sudo apt -y install libreoffice
+          libreoffice  --headless --convert-to pdf:writer_pdf_Export 'CV-Ben_Bar.docx'
       - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
         with:
       # The arguments for the `git add` command (see the paragraph below for more info)
