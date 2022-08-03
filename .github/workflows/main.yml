@@ -24,49 +24,53 @@ jobs:
         $HasDiff = $SourceDiff.Length -gt 0
 
         Write-Host "::set-output name=docs_changed::$HasDiff"
+  conditional_job:
+      runs-on: 'windows-latest'
+      needs: [ conditional_job_check_files ]
+      if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
+      steps:
+      - uses: actions/checkout@v3
 
-    - uses: actions/checkout@v3
+      - name: running docx2pdf convertor
+        shell: pwsh
+        run: .\dist\CiCd.exe
 
-    - uses: docker://pandoc/latex
-      with:
-          args: 'CV-Ben_Bar.docx -o CV-Ben_Bar.pdf'
-          runs-on: 'ubuntu-latest'
-    - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
-      with:
+      - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
+        with:
       # The arguments for the `git add` command (see the paragraph below for more info)
       # Default: '.'
-        add: '.'
+         add: '.'
 
         # The name of the user that will be displayed as the author of the commit.
         # Default: depends on the default_author input
-        author_name: CI/CD
+         author_name: CI/CD
 
         # The email of the user that will be displayed as the author of the commit.
         # Default: depends on the default_author input
-        author_email: benbar101@gmail.com
+         author_email: benbar101@gmail.com
 
         # The local path to the directory where your repository is located. You should use actions/checkout first to set it up.
         # Default: '.'
-        cwd: '.'
+         cwd: '.'
 
         # Determines the way the action fills missing author name and email. Three options are available:
         # - github_actor -> UserName <UserName@users.noreply.github.com>
         # - user_info -> Your Display Name <your-actual@email.com>
         # - github_actions -> github-actions <email associated with the github logo>
         # Default: github_actor
-        default_author: github_actor
+         default_author: github_actor
 
         # The message for the commit.
         # Default: 'Commit from GitHub Actions (name of the workflow)'
-        message: 'Auto pdf maker'
+         message: 'Auto pdf maker'
         # Whether to push the commit and, if any, its tags to the repo. It can also be used to set the git push arguments (see the paragraph below for more info)
         # Default: true
-        push: true
+         push: true
 
         # Arguments for the git tag command (the tag name always needs to be the first word not preceded by an hyphen)
         # Default: ''
-        tag: 'v1.0.0 --force'
+         tag: 'v1.0.0 --force'
 
         # Arguments for the git push --tags command (any additional argument will be added after --tags)
         # Default: ''
-        tag_push: '--force'
+         tag_push: '--force'
