@@ -75,3 +75,10 @@ jobs:
         # Arguments for the git push --tags command (any additional argument will be added after --tags)
         # Default: ''
          tag_push: '--force'
+      - name: Upload to gdrive
+        uses: adityak74/google-drive-upload-git-action@main
+        with:
+          credentials: ${{ secrets.credentials }}
+          filename: "CV-Ben_Bar.pdf"
+          folderId: ${{ secrets.folder_id }}
+          overwrite: "true"
