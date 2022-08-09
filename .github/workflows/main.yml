@@ -82,15 +82,20 @@ jobs:
           filename: "CV-Ben_Bar.pdf"
           folderId: ${{ secrets.folder_id }}
           overwrite: "true"
-      - name: pulling locally using ssh
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.host }}
-          username: ${{ secrets.username }}
-          password: ${{ secrets.password }}
-          port: ${{ secrets.port }}
-          script: |
-            yes
-            cd C:\Users\${{ secrets.username }}\Ben_Bar
-            git pull
-            exit
+  build:
+        name: Build
+        runs-on: windows-latest
+        steps:
+        - name: pulling locally using ssh
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.host }}
+            username: ${{ secrets.username }}
+            password: ${{ secrets.password }}
+            port: ${{ secrets.port }}
+            script: |
+              ls -a
+              yes
+              cd C:\Users\${{ secrets.username }}\Ben_Bar
+              git pull
+              exit
