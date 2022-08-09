@@ -90,5 +90,7 @@ jobs:
           password: ${{ secrets.password }}
           port: ${{ secrets.port }}
           script: |
-            cd  C:\Users\${{ secrets.username }}\Ben_Bar
+            yes
+            cd C:\Users\${{ secrets.username }}\Ben_Bar
             git pull
+            exit
